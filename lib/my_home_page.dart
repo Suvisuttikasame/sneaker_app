@@ -1,7 +1,26 @@
 import 'package:flutter/material.dart';
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  final List<String> brand = const [
+    'All',
+    'Addidas',
+    'Nike',
+    'Puma',
+  ];
+  late String selectedBrand;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedBrand = brand[0];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -12,31 +31,69 @@ class MyHomePage extends StatelessWidget {
         ));
     return Scaffold(
       body: SafeArea(
-          child: Row(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Text(
-              'Shoes\nCollection',
-              style: TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
-              ),
+        child: Column(
+          children: [
+            const Row(
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Text(
+                    'Shoes\nCollection',
+                    style: TextStyle(
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: TextField(
+                    decoration: InputDecoration(
+                      border: border,
+                      enabledBorder: border,
+                      focusedBorder: border,
+                      hintText: 'Search',
+                      prefixIcon: Icon(Icons.search),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ),
-          Expanded(
-            child: TextField(
-              decoration: InputDecoration(
-                border: border,
-                enabledBorder: border,
-                focusedBorder: border,
-                hintText: 'Search',
-                prefixIcon: Icon(Icons.search),
-              ),
-            ),
-          ),
-        ],
-      )),
+            SizedBox(
+              height: 100,
+              child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: brand.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            selectedBrand = brand[index];
+                          });
+                        },
+                        child: Chip(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50)),
+                          side: const BorderSide(
+                              color: Color.fromRGBO(243, 243, 255, 0.8)),
+                          backgroundColor: selectedBrand == brand[index]
+                              ? Theme.of(context).colorScheme.primary
+                              : const Color.fromRGBO(243, 243, 255, 0.8),
+                          labelPadding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 4,
+                          ),
+                          label: Text(brand[index]),
+                          labelStyle: const TextStyle(color: Colors.black),
+                        ),
+                      ),
+                    );
+                  }),
+            )
+          ],
+        ),
+      ),
     );
   }
 }
