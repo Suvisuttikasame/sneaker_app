@@ -15,7 +15,7 @@ class _MyHomePageState extends State<MyHomePage> {
     'Nike',
     'Puma',
   ];
-  final List<Map<String, dynamic>> items = [
+  final List<Map<String, Object>> items = [
     {'name': 'NIKE AIR 2008', 'price': 199, 'img': 'assets/images/nike-1.png'},
     {'name': 'NIKE AIR 2002', 'price': 199, 'img': 'assets/images/nike-2.png'},
     {'name': 'PUMA CITY', 'price': 199, 'img': 'assets/images/puma-1.png'},
@@ -40,19 +40,16 @@ class _MyHomePageState extends State<MyHomePage> {
       body: SafeArea(
         child: Column(
           children: [
-            const Row(
+            Row(
               children: [
                 Padding(
-                  padding: EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.all(16.0),
                   child: Text(
                     'Shoes\nCollection',
-                    style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
                 ),
-                Expanded(
+                const Expanded(
                   child: TextField(
                     decoration: InputDecoration(
                       border: border,
@@ -103,9 +100,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   itemCount: items.length,
                   itemBuilder: (context, index) {
                     return ItemCard(
-                      name: items[index]['name'],
+                      name: items[index]['name'] as String,
                       price: '\$ ${items[index]['price']}',
-                      img: items[index]['img'],
+                      img: items[index]['img'] as String,
                       bgColor: index.isEven
                           ? const Color.fromRGBO(216, 240, 253, 1)
                           : const Color.fromRGBO(243, 243, 255, 0.8),
