@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sneaker_app/item_card.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -13,6 +14,12 @@ class _MyHomePageState extends State<MyHomePage> {
     'Addidas',
     'Nike',
     'Puma',
+  ];
+  final List<Map<String, dynamic>> items = [
+    {'name': 'NIKE AIR 2008', 'price': 199, 'img': 'assets/images/nike-1.png'},
+    {'name': 'NIKE AIR 2002', 'price': 199, 'img': 'assets/images/nike-2.png'},
+    {'name': 'PUMA CITY', 'price': 199, 'img': 'assets/images/puma-1.png'},
+    {'name': 'ADDIDAS X', 'price': 199, 'img': 'assets/images/addidas-1.png'},
   ];
   late String selectedBrand;
 
@@ -88,6 +95,20 @@ class _MyHomePageState extends State<MyHomePage> {
                           labelStyle: const TextStyle(color: Colors.black),
                         ),
                       ),
+                    );
+                  }),
+            ),
+            Expanded(
+              child: ListView.builder(
+                  itemCount: items.length,
+                  itemBuilder: (context, index) {
+                    return ItemCard(
+                      name: items[index]['name'],
+                      price: '\$ ${items[index]['price']}',
+                      img: items[index]['img'],
+                      bgColor: index.isEven
+                          ? const Color.fromRGBO(216, 240, 253, 1)
+                          : const Color.fromRGBO(243, 243, 255, 0.8),
                     );
                   }),
             )
