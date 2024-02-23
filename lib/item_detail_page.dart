@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sneaker_app/cart_provider.dart';
 
 class ItemDetailPage extends StatefulWidget {
   final String name;
@@ -24,7 +26,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
   @override
   void initState() {
     super.initState();
-    selectedSize = widget.sizes[0];
+    selectedSize = 0;
   }
 
   @override
@@ -91,7 +93,19 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton.icon(
-                      onPressed: () {},
+                      onPressed: () {
+                        if (selectedSize != 0) {
+                          Provider.of<CartProvider>(
+                            context,
+                            listen: false,
+                          ).addProduct({
+                            'name': widget.name,
+                            'price': widget.price,
+                            'img': widget.img,
+                            'size': selectedSize,
+                          });
+                        }
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Theme.of(context).colorScheme.primary,
                         elevation: 10,
