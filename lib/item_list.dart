@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sneaker_app/item_card.dart';
+import 'package:sneaker_app/item_detail_page.dart';
 
 class ItemList extends StatefulWidget {
   const ItemList({super.key});
@@ -16,10 +17,30 @@ class _ItemListState extends State<ItemList> {
     'Puma',
   ];
   final List<Map<String, Object>> items = [
-    {'name': 'NIKE AIR 2008', 'price': 199, 'img': 'assets/images/nike-1.png'},
-    {'name': 'NIKE AIR 2002', 'price': 199, 'img': 'assets/images/nike-2.png'},
-    {'name': 'PUMA CITY', 'price': 199, 'img': 'assets/images/puma-1.png'},
-    {'name': 'ADDIDAS X', 'price': 199, 'img': 'assets/images/addidas-1.png'},
+    {
+      'name': 'NIKE AIR 2008',
+      'price': 199,
+      'img': 'assets/images/nike-1.png',
+      'sizes': [9, 10, 11, 12]
+    },
+    {
+      'name': 'NIKE AIR 2002',
+      'price': 199,
+      'img': 'assets/images/nike-2.png',
+      'sizes': [9, 10, 11, 12]
+    },
+    {
+      'name': 'PUMA CITY',
+      'price': 199,
+      'img': 'assets/images/puma-1.png',
+      'sizes': [9, 10, 11, 12]
+    },
+    {
+      'name': 'ADDIDAS X',
+      'price': 199,
+      'img': 'assets/images/addidas-1.png',
+      'sizes': [9, 10, 11, 12]
+    },
   ];
   late String selectedBrand;
 
@@ -98,13 +119,26 @@ class _ItemListState extends State<ItemList> {
             child: ListView.builder(
                 itemCount: items.length,
                 itemBuilder: (context, index) {
-                  return ItemCard(
-                    name: items[index]['name'] as String,
-                    price: '\$ ${items[index]['price']}',
-                    img: items[index]['img'] as String,
-                    bgColor: index.isEven
-                        ? const Color.fromRGBO(216, 240, 253, 1)
-                        : const Color.fromRGBO(243, 243, 255, 0.8),
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.of(context)
+                          .push(MaterialPageRoute(builder: (context) {
+                        return ItemDetailPage(
+                          name: items[index]['name'] as String,
+                          price: '\$ ${items[index]['price']}',
+                          img: items[index]['img'] as String,
+                          sizes: items[index]['sizes'] as List<int>,
+                        );
+                      }));
+                    },
+                    child: ItemCard(
+                      name: items[index]['name'] as String,
+                      price: '\$ ${items[index]['price']}',
+                      img: items[index]['img'] as String,
+                      bgColor: index.isEven
+                          ? const Color.fromRGBO(216, 240, 253, 1)
+                          : const Color.fromRGBO(243, 243, 255, 0.8),
+                    ),
                   );
                 }),
           )
