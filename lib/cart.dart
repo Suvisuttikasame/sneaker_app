@@ -5,8 +5,24 @@ class Cart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder(
-      child: Text('cart'),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Cart'),
+      ),
+      body: ListView.builder(
+          itemCount: 1,
+          itemBuilder: (context, index) {
+            return const ListTile(
+              title: Text('test'),
+              leading: CircleAvatar(
+                backgroundImage: ExactAssetImage('assets/images/nike-1.png'),
+              ),
+              trailing: Icon(
+                Icons.delete,
+                color: Colors.red,
+              ),
+            );
+          }),
     );
   }
 }
