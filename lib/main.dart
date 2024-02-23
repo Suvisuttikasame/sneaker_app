@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sneaker_app/item_detail_page.dart';
 import 'package:sneaker_app/my_home_page.dart';
 
 void main() {
@@ -41,12 +40,7 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const ItemDetailPage(
-        name: 'Nike Air 2001',
-        price: '\$ 100',
-        img: 'assets/images/nike-1.png',
-        sizes: [9, 10, 11],
-      ),
+      home: const MyHomePage(),
     );
   }
 }
