@@ -104,6 +104,17 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                             'img': widget.img,
                             'size': selectedSize,
                           });
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Successfully add to cart'),
+                            ),
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Please select size'),
+                            ),
+                          );
                         }
                       },
                       style: ElevatedButton.styleFrom(
