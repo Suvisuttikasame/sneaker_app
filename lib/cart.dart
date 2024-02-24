@@ -7,23 +7,62 @@ class Cart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(Provider.of<CartProvider>(context).cart);
+    final cart = Provider.of<CartProvider>(context).cart;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Cart'),
       ),
       body: ListView.builder(
-          itemCount: 1,
+          itemCount: cart.length,
           itemBuilder: (context, index) {
-            return const ListTile(
-              title: Text('test'),
-              subtitle: Text('sub test'),
+            return ListTile(
+              title: Text(cart[index]['name']),
+              subtitle: Text('size ${cart[index]['size']}'),
               leading: CircleAvatar(
-                backgroundImage: ExactAssetImage('assets/images/nike-1.png'),
+                backgroundImage: ExactAssetImage(cart[index]['img']),
               ),
-              trailing: Icon(
-                Icons.delete,
-                color: Colors.red,
+              trailing: GestureDetector(
+                onTap: () {
+                  showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text(
+                            'Delete selected Item',
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                          content:
+                              const Text('Are you sure to delete this item ?'),
+                          actions: [
+                            TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: const Text(
+                                  'cancel',
+                                  style: TextStyle(color: Colors.blue),
+                                )),
+                            TextButton(
+                              onPressed: () {
+                                Provider.of<CartProvider>(context,
+                                        listen: false)
+                                    .removeProduct(cart[index]);
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text(
+                                'ok',
+                                style: TextStyle(color: Colors.red),
+                              ),
+                            ),
+                          ],
+                        );
+                      });
+                },
+                child: const Icon(
+                  Icons.delete,
+                  color: Colors.red,
+                ),
               ),
             );
           }),
