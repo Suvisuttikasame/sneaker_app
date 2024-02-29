@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:sneaker_app/cart.dart';
+import 'package:sneaker_app/cart_page.dart';
 
 import 'package:sneaker_app/item_list.dart';
 
